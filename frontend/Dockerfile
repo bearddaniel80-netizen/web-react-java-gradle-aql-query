@@ -6,11 +6,11 @@ FROM node:22-alpine AS deps
 RUN apk add --no-cache git
 
 RUN git clone --depth=1 \
-    https://github.com/bearddaniel80-netizen/web-aql-query.git
+    https://github.com/bearddaniel80-netizen/web-react-aql-query.git
 
 WORKDIR /build
 
-RUN cp /web-aql-query/frontend/package.json .
+RUN cp /web-react-aql-query/frontend/package.json .
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install
@@ -30,7 +30,7 @@ WORKDIR /app
 
 COPY --from=deps /build/node_modules ./node_modules
 
-COPY --from=deps /web-aql-query/frontend .
+COPY --from=deps /web-react-aql-query/frontend .
 # To generate docs
 # RUN npm run docs
 RUN mkdir -p src/components
